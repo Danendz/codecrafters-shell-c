@@ -48,6 +48,8 @@ int main() {
 
         if (strcmp(command, "echo") == 0 && params != NULL) {
             printf("%s", params);
+        } else if(strcmp(command, "type") == 0 && params != NULL)  {
+            printf("%s", params);
         } else if(strcmp(command, "exit") == 0) {
             break;
         } else {
