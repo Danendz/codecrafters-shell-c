@@ -18,14 +18,17 @@ int main() {
         }
 
         char *command = (char*)malloc(sizeof(char) * ln);
+        int len = 0;
 
-        for (int i = 0; i <= ln; i++) {
+        for (int i = 0; i < ln; i++) {
             if (input[i] == ' ') {
                 break;
             }
 
             command[i] = input[i];
+            len++;
         }
+        command[len] = '\0';
 
         if (strcmp(command, "exit") == 0) {
             break;
