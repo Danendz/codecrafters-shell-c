@@ -4,11 +4,10 @@
 int main() {
     // Wait for user input
     char input[101];
+    printf("$ ");
+    fflush(stdout);
 
     while (strcmp(input, "exit") != 0) {
-        printf("\n$ ");
-        fflush(stdout);
-
         fgets(input, 100, stdin);
 
         size_t ln = strlen(input) - 1;
@@ -18,6 +17,7 @@ int main() {
         }
 
         printf("%s: command not found", input);
+        printf("\n$ ");
         fflush(stdout);
     }
     return 0;
