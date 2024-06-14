@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
 
 int main() {
     // Wait for user input
@@ -7,13 +8,27 @@ int main() {
     printf("$ ");
     fflush(stdout);
 
-    while (strcmp(input, "exit") != 0) {
+    while (1) {
         fgets(input, 100, stdin);
 
         size_t ln = strlen(input) - 1;
 
         if (input[ln] == '\n') {
             input[ln] = '\0';
+        }
+
+        char *command = (char*)malloc(sizeof(char) * ln);
+
+        for (int i = 0; i <= ln; i++) {
+            if (input[i] == ' ') {
+                break;
+            }
+
+            command[i] = input[i];
+        }
+
+        if (strcmp(command, "exit") == 0) {
+            break;
         }
 
         printf("%s: command not found", input);
