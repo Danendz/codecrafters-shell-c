@@ -4,6 +4,9 @@
 #include <stdbool.h>
 
 void readWriteInput(char* input, int count, bool newLine) {
+    if (newLine) {
+        printf("\n");
+    }
     printf("$ ");
     fflush(stdout);
     fgets(input, count, stdin);
