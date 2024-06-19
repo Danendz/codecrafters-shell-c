@@ -63,7 +63,7 @@ int main() {
             printf("%s: command not found", input);
         }
 
-        readWriteInput(input, 100, false);
+        readWriteInput(input, 100, true);
     }
     return 0;
 }
