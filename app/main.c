@@ -2,14 +2,18 @@
 #include <string.h>
 #include <malloc.h>
 
+void readWriteInput(char* input, int count) {
+    printf("\n$ ");
+    fflush(stdout);
+    fgets(input, count, stdin);
+}
+
 int main() {
     // Wait for user input
     char input[101];
-    printf("$ ");
-    fflush(stdout);
 
     while (1) {
-        fgets(input, 100, stdin);
+        readWriteInput(input, 100);
 
         size_t ln = strlen(input) - 1;
 
@@ -55,9 +59,6 @@ int main() {
         } else {
             printf("%s: command not found", input);
         }
-
-        printf("\n$ ");
-        fflush(stdout);
     }
     return 0;
 }
