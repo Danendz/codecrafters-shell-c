@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
+#include <stdbool.h>
 
-void readWriteInput(char* input, int count) {
-    printf("\n$ ");
+void readWriteInput(char* input, int count, bool newLine) {
+    printf("$ ");
     fflush(stdout);
     fgets(input, count, stdin);
 }
@@ -11,10 +12,9 @@ void readWriteInput(char* input, int count) {
 int main() {
     // Wait for user input
     char input[101];
+    readWriteInput(input, 100, false);
 
     while (1) {
-        readWriteInput(input, 100);
-
         size_t ln = strlen(input) - 1;
 
         if (input[ln] == '\n') {
@@ -59,6 +59,8 @@ int main() {
         } else {
             printf("%s: command not found", input);
         }
+
+        readWriteInput(input, 100, false);
     }
     return 0;
 }
