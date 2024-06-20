@@ -40,7 +40,7 @@ int cmd_type(const char *command, char *params) {
         }
     }
 
-    printf("%s: command not found", params);
+    printf("%s: not found", params);
     return CMD_OK;
 }
 
