@@ -16,6 +16,7 @@ int main() {
         char *command = (char *) malloc(sizeof(char) * ln);
         char *params = NULL;
 
+
         getCommandAndParams(input, command, &params, ln);
 
         int res = readCommand(command, params);
@@ -24,6 +25,11 @@ int main() {
             break;
         } else if (res == CMD_CONTINUE) {
             continue;
+        }
+
+        free(command);
+        if (params != NULL) {
+            free(params);
         }
 
         readWriteInput(input, 100, true);

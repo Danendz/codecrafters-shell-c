@@ -41,7 +41,7 @@ void getCommandAndParams(const char *input, char *command, char **params, size_t
 }
 
 int readCommand(const char *command, char *params) {
-    int code = CMD_FAILED;
+    int code = CMD_NOT_FOUND;
     for (int i = 0; i < COMMANDS_LEN; i++) {
         char *name = commands[i].name;
         if (strcmp(command, name) == 0) {
@@ -49,7 +49,7 @@ int readCommand(const char *command, char *params) {
         }
     }
 
-    if (code == CMD_FAILED) {
+    if (code == CMD_NOT_FOUND) {
         printf("%s: command not found", command);
         return CMD_OK;
     }
