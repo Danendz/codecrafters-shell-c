@@ -22,7 +22,6 @@ int cmd_type(const char *command, char *params) {
     char *path = getenv("PATH");
     char separator = ':';
     char **paths = NULL;
-    printf("%s", path);
     int rows = 1;
 
     if (path != NULL) {
@@ -72,6 +71,7 @@ int cmd_type(const char *command, char *params) {
 
     if (paths != NULL) {
         for (int j = 0; j < rows; j++) {
+            printf("%s\n", paths[j]);
             DIR *d = opendir(paths[j]);
             struct dirent *dir;
             if (d) {
