@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "commands.h"
 #include "utils.h"
 
@@ -25,7 +26,7 @@ int cmd_type(const char *command, char *params) {
         }
     }
 
-    char* command_path = find_command_path_by_PATH(params);
+    char *command_path = find_command_path_by_PATH(params);
 
     if (command_path != NULL) {
         printf("%s is %s", params, command_path);
@@ -37,8 +38,17 @@ int cmd_type(const char *command, char *params) {
     return CMD_OK;
 }
 
+int cmd_pwd(const char *command, char *params) {
+    char cwd[256];
+    if(getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("%s", cwd);
+    }
+    return CMD_OK;
+}
+
 Command commands[COMMANDS_LEN] = {
         {"echo", &cmd_echo},
         {"exit", &cmd_exit},
-        {"type", &cmd_type}
+        {"type", &cmd_type},
+        {"pwd",  &cmd_pwd}
 };
