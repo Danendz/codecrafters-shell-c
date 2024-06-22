@@ -1,9 +1,11 @@
 #include <string.h>
 #include "commands.h"
 #include "utils.h"
+#include "globals.h"
 
 int main() {
     char input[101];
+    init_cwd();
     read_write_input(input, 100, false);
 
     while (true) {

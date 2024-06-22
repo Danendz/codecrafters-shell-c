@@ -10,7 +10,7 @@ void get_command_and_params(const char *input, char *command, char **params, siz
 
 int read_command(const char *command, char *params);
 
-char* find_command_path_by_PATH(const char*command);
+char *find_command_path_by_PATH(const char *command);
 
 int execute_and_read_system_command(const char *command, char *params);
 

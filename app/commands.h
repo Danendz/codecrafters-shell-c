@@ -1,7 +1,7 @@
 #ifndef CODECRAFTERS_SHELL_C_COMMANDS_H
 #define CODECRAFTERS_SHELL_C_COMMANDS_H
 
-#define COMMANDS_LEN 4
+#define COMMANDS_LEN 5
 
 #define CMD_OK 0
 #define CMD_CONTINUE 1
@@ -22,6 +22,8 @@ int cmd_exit(const char *command, char *params);
 int cmd_type(const char *command, char *params);
 
 int cmd_pwd(const char *command, char *params);
+
+int cmd_cd(const char *command, char *params);
 
 extern Command commands[COMMANDS_LEN];
 

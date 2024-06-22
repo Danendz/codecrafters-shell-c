@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
+#include <dirent.h>
 #include "commands.h"
 #include "utils.h"
+#include "globals.h"
 
 int cmd_echo(const char *command, char *params) {
     if (params == NULL) return CMD_NOT_FOUND;
@@ -39,16 +40,26 @@ int cmd_type(const char *command, char *params) {
 }
 
 int cmd_pwd(const char *command, char *params) {
-    char cwd[256];
-    if(getcwd(cwd, sizeof(cwd)) != NULL) {
-        printf("%s", cwd);
-    }
+    printf("%s", cwd);
     return CMD_OK;
+}
+
+int cmd_cd(const char *command, char *params) {
+    DIR *d = opendir(params);
+
+    if (d) {
+        strcpy(cwd, params);
+    } else {
+        printf("cd: %s: No such file or directory", params);
+    }
+
+    return CMD_OK_WITHOUT_NEW_LINE;
 }
 
 Command commands[COMMANDS_LEN] = {
         {"echo", &cmd_echo},
         {"exit", &cmd_exit},
         {"type", &cmd_type},
-        {"pwd",  &cmd_pwd}
+        {"pwd",  &cmd_pwd},
+        {"cd", &cmd_cd}
 };
