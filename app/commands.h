@@ -7,6 +7,7 @@
 #define CMD_CONTINUE 1
 #define CMD_BREAK 2
 #define CMD_NOT_FOUND 3
+#define CMD_OK_WITHOUT_NEW_LINE 4
 
 typedef struct Command {
     char *name;

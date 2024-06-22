@@ -4,7 +4,7 @@
 
 int main() {
     char input[101];
-    readWriteInput(input, 100, false);
+    read_write_input(input, 100, false);
 
     while (true) {
         size_t ln = strlen(input) - 1;
@@ -16,15 +16,17 @@ int main() {
         char *command = (char *) malloc(sizeof(char) * ln);
         char *params = NULL;
 
+        get_command_and_params(input, command, &params, ln);
 
-        getCommandAndParams(input, command, &params, ln);
-
-        int res = readCommand(command, params);
+        int res = read_command(command, params);
+        bool new_line = true;
 
         if (res == CMD_BREAK) {
             break;
         } else if (res == CMD_CONTINUE) {
             continue;
+        } else if(res == CMD_OK_WITHOUT_NEW_LINE) {
+            new_line = false;
         }
 
         free(command);
@@ -32,7 +34,7 @@ int main() {
             free(params);
         }
 
-        readWriteInput(input, 100, true);
+        read_write_input(input, 100, new_line);
     }
     return 0;
 }

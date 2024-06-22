@@ -4,10 +4,14 @@
 #include <stdbool.h>
 #include <malloc.h>
 
-void readWriteInput(char *input, int count, bool newLine);
+void read_write_input(char *input, int count, bool newLine);
 
-void getCommandAndParams(const char *input, char *command, char **params, size_t ln);
+void get_command_and_params(const char *input, char *command, char **params, size_t ln);
 
-int readCommand(const char *command, char *params);
+int read_command(const char *command, char *params);
+
+char* find_command_path_by_PATH(const char*command);
+
+int execute_and_read_system_command(const char *command, char *params);
 
 #endif //CODECRAFTERS_SHELL_C_UTILS_H
