@@ -19,8 +19,8 @@ int cmd_exit(const char *command, char *params) {
 int cmd_type(const char *command, char *params) {
     if (params == NULL) return CMD_NOT_FOUND;
 
-    char *path = getenv("P");
-    char separator = ';';
+    char *path = getenv("PATH");
+    char separator = ':';
     char **paths = NULL;
     int rows = 1;
 
@@ -40,9 +40,18 @@ int cmd_type(const char *command, char *params) {
         int c = 0;
         for (t = path; *t != '\0'; t++, i++) {
             if (*t == separator || *(t + 1) == '\0') {
+                // if we're almost at the end we're adding to length + 1
+                // so, we should add +1 to i to get correct length
                 size_t len = *(t + 1) == '\0' ? i + 1 : i;
+
                 paths[r] = (char *) malloc(sizeof(char) * len);
-                strncpy(paths[r], (path + c), len);
+
+                // Remove separator but not at the start
+                int separator_fix = r == 0 ? 0 : 1;
+                char *src_step = path + c + separator_fix;
+                size_t copy_num = len - separator_fix;
+
+                strncpy(paths[r], src_step, copy_num);
                 paths[r][len] = '\0';
 
                 c += i;
@@ -50,12 +59,12 @@ int cmd_type(const char *command, char *params) {
                 r++;
             }
         }
-
     }
 
     for (int i = 0; i < COMMANDS_LEN; i++) {
         if (strcmp(params, commands[i].name) == 0) {
             printf("%s is a shell builtin", params);
+            free(paths);
             return CMD_OK;
         }
     }
@@ -67,7 +76,8 @@ int cmd_type(const char *command, char *params) {
             if (d) {
                 while ((dir = readdir(d)) != NULL) {
                     if (strcmp(dir->d_name, params) == 0) {
-                        printf("%s is %s/%s", command, paths[j], params);
+                        printf("%s is %s/%s", params, paths[j], params);
+                        free(paths);
                         return CMD_OK;
                     }
                 }
@@ -76,6 +86,7 @@ int cmd_type(const char *command, char *params) {
     }
 
     printf("%s: not found", params);
+    free(paths);
     return CMD_OK;
 }
 
