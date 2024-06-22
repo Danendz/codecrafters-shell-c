@@ -35,9 +35,9 @@ int cmd_type(const char *command, char *params) {
 
         paths = (char **) malloc(sizeof(char *) * rows);
 
-        int i = 0;
-        int r = 0;
-        int c = 0;
+        size_t i = 0;
+        size_t r = 0;
+        size_t c = 0;
         for (t = path; *t != '\0'; t++, i++) {
             if (*t == separator || *(t + 1) == '\0') {
                 // if we're almost at the end we're adding to length + 1
@@ -47,7 +47,7 @@ int cmd_type(const char *command, char *params) {
                 paths[r] = (char *) malloc(sizeof(char) * len);
 
                 // Remove separator but not at the start
-                int separator_fix = r == 0 ? 0 : 1;
+                size_t separator_fix = r == 0 ? 0 : 1;
                 char *src_step = path + c + separator_fix;
                 size_t copy_num = len - separator_fix;
 
@@ -71,7 +71,6 @@ int cmd_type(const char *command, char *params) {
 
     if (paths != NULL) {
         for (int j = 0; j < rows; j++) {
-            printf("%s\n", paths[j]);
             DIR *d = opendir(paths[j]);
             struct dirent *dir;
             if (d) {
