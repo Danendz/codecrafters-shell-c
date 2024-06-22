@@ -22,7 +22,6 @@ int cmd_type(const char *command, char *params) {
     char *path = getenv("PATH");
     char separator = ':';
     char **paths = NULL;
-    printf("%s\n", path);
     int rows = 1;
 
     if (path != NULL) {
@@ -41,21 +40,21 @@ int cmd_type(const char *command, char *params) {
         int c = 0;
         for (t = path; *t != '\0'; t++, i++) {
             if (*t == separator || *(t + 1) == '\0') {
+                // Remove separator but not at the start
+                int separator_fix = r == 0 ? 0 : 1;
+
                 // if we're almost at the end we're adding to length + 1
                 // so, we should add +1 to i to get correct length
-                size_t len = *(t + 1) == '\0' ? i + 1 : i;
+                size_t len = *(t + 1) == '\0' ? i + 1 - separator_fix : i - separator_fix;
 
                 paths[r] = (char *) malloc(sizeof(char) * len);
 
-                // Remove separator but not at the start
-                int separator_fix = r == 0 ? 0 : 1;
                 char *src_step = path + c + separator_fix;
-                size_t copy_num = len - separator_fix;
+                size_t copy_num = len;
 
                 strncpy(paths[r], src_step, copy_num);
 
                 paths[r][len] = '\0';
-                printf("%s\n", paths[r]);
 
                 c += i;
                 i = 0;
@@ -74,7 +73,6 @@ int cmd_type(const char *command, char *params) {
 
     if (paths != NULL) {
         for (int j = 0; j < rows; j++) {
-            printf("%s\n", paths[j]);
             DIR *d = opendir(paths[j]);
             struct dirent *dir;
             if (d) {
