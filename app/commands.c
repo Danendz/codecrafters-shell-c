@@ -22,6 +22,7 @@ int cmd_type(const char *command, char *params) {
     char *path = getenv("PATH");
     char separator = ':';
     char **paths = NULL;
+    printf("%s", path);
     int rows = 1;
 
     if (path != NULL) {
