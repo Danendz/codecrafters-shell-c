@@ -80,14 +80,16 @@ int execute_and_read_system_command(const char *command, char *params) {
 
 int read_command(const char *command, char *params) {
     int code = CMD_NOT_FOUND;
+    bool is_builtin_found = false;
     for (int i = 0; i < COMMANDS_LEN; i++) {
         char *name = commands[i].name;
         if (strcmp(command, name) == 0) {
             code = commands[i].action(command, params);
+            is_builtin_found = true;
         }
     }
 
-    if (code == CMD_NOT_FOUND) {
+    if (!is_builtin_found) {
         code = execute_and_read_system_command(command, params);
     }
 
