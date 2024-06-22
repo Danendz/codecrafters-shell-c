@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <dirent.h>
+#include <unistd.h>
 #include "commands.h"
 #include "utils.h"
 #include "globals.h"
@@ -48,10 +49,10 @@ int cmd_cd(const char *command, char *params) {
     DIR *d = opendir(params);
 
     if (d) {
-        strcpy(cwd, params);
+        chdir(params);
         return CMD_OK_WITHOUT_NEW_LINE;
     }
-    
+
     printf("cd: %s: No such file or directory", params);
     return CMD_OK;
 }
