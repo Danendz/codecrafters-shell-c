@@ -2,6 +2,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "commands.h"
 #include "utils.h"
 
@@ -48,6 +49,14 @@ int cmd_pwd(const char *command, char *params) {
 }
 
 int cmd_cd(const char *command, char *params) {
+    if (*params == '~') {
+        char* home = getenv("HOME");
+        if (home != NULL) {
+            chdir(home);
+            return CMD_OK_WITHOUT_NEW_LINE;
+        }
+    }
+
     DIR *d = opendir(params);
 
     if (d) {
