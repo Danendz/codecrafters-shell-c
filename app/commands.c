@@ -49,11 +49,11 @@ int cmd_cd(const char *command, char *params) {
 
     if (d) {
         strcpy(cwd, params);
-    } else {
-        printf("cd: %s: No such file or directory", params);
+        return CMD_OK_WITHOUT_NEW_LINE;
     }
-
-    return CMD_OK_WITHOUT_NEW_LINE;
+    
+    printf("cd: %s: No such file or directory", params);
+    return CMD_OK;
 }
 
 Command commands[COMMANDS_LEN] = {
@@ -61,5 +61,5 @@ Command commands[COMMANDS_LEN] = {
         {"exit", &cmd_exit},
         {"type", &cmd_type},
         {"pwd",  &cmd_pwd},
-        {"cd", &cmd_cd}
+        {"cd",   &cmd_cd}
 };
