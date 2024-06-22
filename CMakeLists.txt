@@ -9,5 +9,4 @@ add_executable(codecrafters_shell_c
         app/commands.c
         app/utils.h
         app/utils.c
-        app/globals.h
-        app/globals.c)
+)

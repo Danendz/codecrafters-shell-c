@@ -1,9 +1,0 @@
-#ifndef CODECRAFTERS_SHELL_C_GLOBALS_H
-#define CODECRAFTERS_SHELL_C_GLOBALS_H
-
-#define MAX_PATH_SIZE 256
-extern char *cwd;
-
-void init_cwd();
-
-#endif //CODECRAFTERS_SHELL_C_GLOBALS_H

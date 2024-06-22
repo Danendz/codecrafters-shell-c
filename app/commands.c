@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include "commands.h"
 #include "utils.h"
-#include "globals.h"
 
 int cmd_echo(const char *command, char *params) {
     if (params == NULL) return CMD_NOT_FOUND;
@@ -41,7 +40,10 @@ int cmd_type(const char *command, char *params) {
 }
 
 int cmd_pwd(const char *command, char *params) {
-    printf("%s", cwd);
+    char cwd[256];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("%s", cwd);
+    }
     return CMD_OK;
 }
 
